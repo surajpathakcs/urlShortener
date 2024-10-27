@@ -30,7 +30,16 @@ async function handleGetOriginalURL(req,res){
         const Id= req.params.id
 
         try{
-            const urlEntry = await URL.findOne({shortID:Id})
+            const urlEntry = await URL.findOneAndUpdate(
+                {shortID:Id},
+                {
+                    $push:{
+                        visitHistory:{
+                            timestamp: Date.now()
+                        }
+                    }
+                }
+            )
             if(urlEntry) {
                 return res.redirect(urlEntry.redirectURL)
                 console.log("redirect")
@@ -70,6 +79,10 @@ async function handleDeleteURL(req,res){
         }
         )
     }
+}
+
+async function name(params) {
+    
 }
 
 module.exports = {
