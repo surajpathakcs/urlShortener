@@ -14,17 +14,20 @@ async function handleGenerateNewShortURL(req,res){
         visitHistory:[],
     })
 
+    console.log({
+        message:"Short URL Created"
+        })
     
-    return res.json({ id: shortID})
+    return res.json({ id: shortId})
     
 };
 
 async function handleGetOriginalURL(req,res){
-        const shortID = req.params.id
-        const urlEntry = await URL.findOne({shortId:shortID})
+        const shortId= req.params.id
+        const urlEntry = await URL.findOne({shortID:shortId})
 
         if(urlEntry) {
-           res.redirectURL(urlEntry.redirectURL)
+           res.redirect(urlEntry.redirectURL)
         }
         else{
             res.status(400).json({
@@ -36,4 +39,5 @@ async function handleGetOriginalURL(req,res){
 
 module.exports = {
     handleGenerateNewShortURL,
+    handleGetOriginalURL
 }

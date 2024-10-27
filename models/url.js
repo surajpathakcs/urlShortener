@@ -21,6 +21,6 @@ const urlSchema = new mongoose.Schema({
 );
 
 //use model from schema
-const URL = mongoose.model('url',urlSchema);
+const URL = mongoose.model('url',urlSchema); //collection name is urls 'mongoose pulralizes url into urls'
 
 module.exports = URL;
