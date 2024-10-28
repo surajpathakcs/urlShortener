@@ -81,13 +81,45 @@ async function handleDeleteURL(req,res){
     }
 }
 
-async function name(params) {
-    
+async function handleUpdateURL(req,res) {
+    const id = req.params.id;
+    const url = req.body.url;
+
+    try{
+        if(!url){
+           return res.status(400).json({
+                error:"URL is not sent for Change"
+            })
+        }
+        
+
+        const urlEntry = await URL.findOneAndUpdate(
+            {shortID:id},
+            {redirectURL : url},
+            { new: true } 
+        )
+        if(!urlEntry){
+            return res.status(404).json({
+                error:"URL with that Id does not exists"
+            })
+        }else{
+
+            res.status(202).json({
+                message:"Successfully Updated"
+            })
+        }
+    }
+    catch(error){
+        return res.status(502).send({
+            error : "Something went wrong while Updating"
+        })
+    }
 }
 
 module.exports = {
     handleView,
     handleGenerateNewShortURL,
     handleGetOriginalURL,
+    handleUpdateURL,
     handleDeleteURL
 }
