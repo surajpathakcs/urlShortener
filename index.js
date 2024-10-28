@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 require('dotenv').config();
 const { connectToMongoDB } = require('./connection')
 const allRoutes = require('./routes/url')
@@ -11,6 +12,8 @@ const app = express();
 const PORT = 8001;
 
 app.use(express.json())
+app.set('view engine','ejs');
+app.set('views',path.resolve('./views'))
 
 app.use('/',allRoutes)
 

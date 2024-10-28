@@ -2,7 +2,7 @@ const ShortID = require('ssid')
 const URL = require('../models/url');
 
 async function handleView(req,res) {
-    res.send(`<h1>APP Started</h1>`)
+    res.render('index')
 }
 
 async function handleGenerateNewShortURL(req,res){
